@@ -45,12 +45,12 @@ public class DefaultSecurityManager implements SecurityManager {
 	}
 
 	@Override
-	public void decrypt(ChannelBuffer buffer, Channel sc) {
+	public void decrypt(final ChannelBuffer buffer, final Channel sc) {
 		// Do nothing, no encryption for default.
 	}
 
 	@Override
-	public void encrypt(ChannelBuffer buffer, Channel sc) {
+	public void encrypt(final ChannelBuffer buffer, final Channel sc) {
 		// Do nothing, no encryption for default.
 	}
 

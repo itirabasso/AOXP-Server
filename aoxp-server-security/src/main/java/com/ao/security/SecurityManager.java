@@ -17,6 +17,8 @@
 
 package com.ao.security;
 
+import javax.annotation.Nonnull;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.Channel;
 
@@ -42,6 +44,7 @@ public interface SecurityManager {
 	 * Retrieves all the valid client's hashes.
 	 * @return The hashes.
 	 */
+	@Nonnull
 	String[] getValidClientHashes();
 
 	/**
@@ -49,13 +52,13 @@ public interface SecurityManager {
 	 * @param buffer The buffer to by encrypted.
 	 * @param c The Channel where the data will be sent.
 	 */
-	void encrypt(ChannelBuffer buffer, Channel c);
+	void encrypt(@Nonnull ChannelBuffer buffer, @Nonnull Channel c);
 
 	/**
 	 * Decrypts the given buffer starting from the last mark.
 	 * @param buffer The buffer to be decrypted.
 	 * @param c The Channel where the data came from.
 	 */
-	void decrypt(ChannelBuffer buffer, Channel c);
+	void decrypt(@Nonnull ChannelBuffer buffer, @Nonnull Channel c);
 
 }
