@@ -74,6 +74,8 @@
     <oro.version>2.0.8</oro.version>
     <javax.inject.version>1.0-PFD-1</javax.inject.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
+    <findbugs.version>3.0.0</findbugs.version>
+
   </properties>
 
   <dependencyManagement>
@@ -142,6 +144,12 @@
         <artifactId>oro</artifactId>
         <version>${oro.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>annotations</artifactId>
+        <version>${findbugs.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 

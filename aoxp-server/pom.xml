@@ -83,6 +83,10 @@
       <groupId>oro</groupId>
       <artifactId>oro</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>annotations</artifactId>
+    </dependency>
 
     <!-- brother project -->
     <dependency>
