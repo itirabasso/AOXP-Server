@@ -51,12 +51,16 @@ import com.ao.model.character.Skill;
 import com.ao.model.character.UserCharacter;
 import com.ao.model.character.archetype.Archetype;
 import com.ao.model.character.archetype.UserArchetype;
+import com.ao.model.inventory.Inventory;
+import com.ao.model.inventory.InventoryImpl;
 import com.ao.model.map.City;
 import com.ao.model.map.Heading;
+import com.ao.model.map.Position;
 import com.ao.model.user.Account;
 import com.ao.model.user.AccountImpl;
 import com.ao.model.user.ConnectedUser;
 import com.ao.model.user.LoggedUser;
+import com.ao.service.WorldObjectService;
 
 public class UserDAOIni implements AccountDAO, UserCharacterDAO {
 
@@ -289,6 +293,7 @@ public class UserDAOIni implements AccountDAO, UserCharacterDAO {
 
 		final String positionKey = homeland.getMap() + "-" + homeland.getX() + "-" + homeland.getY();
 		chara.put(INIT_HEADER, POSITION_KEY, positionKey);
+		final Position position = new Position(homeland.getX(), homeland.getY(), (short) homeland.getMap());
 		// TODO: Save last ip?
 
 		chara.put(FLAGS_HEADER, BANNED_KEY, 0);
@@ -383,10 +388,12 @@ public class UserDAOIni implements AccountDAO, UserCharacterDAO {
 			throw new DAOException(e);
 		}
 
+		Inventory inventory = new InventoryImpl();
+		
 		// TODO: Update this when hp, mana and hit points get updated!
 		return new LoggedUser(user, rep, race, gender, archetype.getArchetype(),
 				false, false, false, false, false, false, false, 0, 0, 0, 0,
-				Character.MAX_THIRSTINESS, 0, Character.MAX_HUNGER, 0, (byte) 1, name, "");
+				Character.MAX_THIRSTINESS, 0, Character.MAX_HUNGER, 0, (byte) 1, name, "", inventory, position);
 	}
 
 	@Override
@@ -427,6 +434,9 @@ public class UserDAOIni implements AccountDAO, UserCharacterDAO {
 
 		Archetype archetype = UserArchetype.get(Byte.parseByte(chara.get(INIT_HEADER, ARCHETYPE_KEY))).getArchetype();
 
+		String[] pos = chara.get(INIT_HEADER, POSITION_KEY).split("-");
+		Position position = new Position(Byte.parseByte(pos[1]), Byte.parseByte(pos[2]), Short.parseShort(pos[0]));
+		
 		boolean poisoned = chara.get(FLAGS_HEADER, POISONED_KEY).equals("1");
 
 		boolean paralyzed = chara.get(FLAGS_HEADER, PARALYZED_KEY).equals("1");
@@ -452,11 +462,22 @@ public class UserDAOIni implements AccountDAO, UserCharacterDAO {
 		int hunger = Integer.parseInt(chara.get(STATS_HEADER, MIN_HUNGER_KEY));
 		byte lvl = Byte.parseByte(chara.get(STATS_HEADER, LEVEL_KEY));
 
+		
+		Inventory inventory = new InventoryImpl();
+		int itemsAmount = Integer.parseInt(chara.get(INVENTORY_HEADER, ITEMS_AMOUNT_KEY));
+		for (byte i = 1; i < itemsAmount; i++) {
+//			chara.put(SKILLS_HEADER, String.format(ITEM_KEY_FORMAT, i));
+//			inventory.addItem(WorldObject)
+		}
+
+//		protected static final String ITEMS_AMOUNT_KEY 		= "CantidadItems";
+//		protected static final String ITEM_KEY_FORMAT		= "Obj%d";
+
 		// TODO : Complete description
 		String description = "";
 
 		// TODO : Validate character
-		final UserCharacter userCharacter = new LoggedUser(user, reputation, race, gender, archetype, poisoned, paralyzed, immobilized, invisible, mimetized, dumbed, hidden, maxMana, mana, maxHitPoints, hitpoints, maxThirstiness, thirstiness, maxHunger, hunger, lvl, username, description);
+		final UserCharacter userCharacter = new LoggedUser(user, reputation, race, gender, archetype, poisoned, paralyzed, immobilized, invisible, mimetized, dumbed, hidden, maxMana, mana, maxHitPoints, hitpoints, maxThirstiness, thirstiness, maxHunger, hunger, lvl, username, description, inventory, position);
 
 		return userCharacter;
 	}

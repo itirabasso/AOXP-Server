@@ -19,6 +19,9 @@
 
 package com.ao.model.user;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.ao.model.character.Attribute;
 import com.ao.model.character.Character;
 import com.ao.model.character.Fx;
@@ -55,7 +58,8 @@ public class LoggedUser extends ConnectedUser implements UserCharacter {
 	private Race race;
 	private Gender gender;
 	private Archetype archetype;
-
+	private Position position;
+	
 	private Weapon weapon;
 	private Helmet helmet;
 	private Shield shield;
@@ -106,7 +110,8 @@ public class LoggedUser extends ConnectedUser implements UserCharacter {
 			final int maxMana, final int minMana, final int maxHp, final int minHp,
 			final int maxThirstiness, final int minThirstiness,
 			final int maxHunger, final int minHunger, final byte lvl,
-			final String name, final String description) {
+			final String name, final String description, final Inventory inventory,
+			final Position position) {
 		super(user.getConnection());
 		this.reputation = reputation;
 		this.race = race;
@@ -130,6 +135,8 @@ public class LoggedUser extends ConnectedUser implements UserCharacter {
 		level = lvl;
 		this.name = name;
 		this.description = description;
+		this.inventory = inventory;
+		this.position = position;
 	}
 
 	@Override
@@ -413,7 +420,7 @@ public class LoggedUser extends ConnectedUser implements UserCharacter {
 	@Override
 	public Position getPosition() {
 		// TODO Auto-generated method stub
-		return null;
+		return position;
 	}
 
 	@Override
@@ -423,8 +430,9 @@ public class LoggedUser extends ConnectedUser implements UserCharacter {
 
 	@Override
 	public Spell[] getSpells() {
+		Spell[] ss = new Spell[0];
 		// TODO Auto-generated method stub
-		return null;
+		return ss;
 	}
 
 	@Override

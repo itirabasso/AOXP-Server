@@ -42,7 +42,7 @@ public class Position {
 	 * @param y	The position in the Y axis.
 	 * @param map The position's map.
 	 */
-	public Position(byte x, byte y, int map) {
+	public Position(byte x, byte y, short map) {
 		this.x = x;
 		this.y = y;
 		this.map = map;

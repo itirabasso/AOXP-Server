@@ -34,7 +34,7 @@ public class PositionTest {
 
 	@Before
 	public void setUp() {
-		pos = new Position(X_POSITION, Y_POSITION, 1);
+		pos = new Position(X_POSITION, Y_POSITION, (short) 1);
 	}
 
 	@Test
@@ -61,14 +61,14 @@ public class PositionTest {
 
 	@Test
 	public void testGetDistance() {
-		Position anotherPos = new Position((byte) (X_POSITION +  20), (byte) (Y_POSITION +  20), 1);
+		Position anotherPos = new Position((byte) (X_POSITION +  20), (byte) (Y_POSITION +  20), (short) 1);
 
 		assertEquals(40, pos.getDistance(anotherPos));
 	}
 
 	@Test
 	public void testInVisionRange() {
-		Position anotherPos = new Position((byte) (X_POSITION +  20), (byte) (Y_POSITION +  20), pos.getMap());
+		Position anotherPos = new Position((byte) (X_POSITION +  20), (byte) (Y_POSITION +  20), (short) pos.getMap());
 
 		assertFalse(pos.inVisionRange(anotherPos));
 

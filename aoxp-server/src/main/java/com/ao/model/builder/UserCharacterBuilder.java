@@ -301,10 +301,9 @@ public class UserCharacterBuilder implements Builder<UserCharacter> {
 		this.position = Objects.requireNonNull(position);
 
 		return this;
-
 	}
 
-
+	
 	@Override
 	public UserCharacter build() {
 		Objects.requireNonNull(user);
@@ -329,10 +328,11 @@ public class UserCharacterBuilder implements Builder<UserCharacter> {
 		Objects.requireNonNull(spells);
 		Objects.requireNonNull(reputation);
 		Objects.requireNonNull(position);
-
+		Objects.requireNonNull(inventory);
+		
 		LoggedUser loggedUser = new LoggedUser(user, reputation, race, gender, archetype.getArchetype(), poisoned,
 				paralyzed, immobilized, mimetized, invisible, dumbed, hidden, maxMana, minMana, maxHp, minHp,
-				maxThirstiness, minThirstiness, maxHunger, minHunger, lvl, name, description);
+				maxThirstiness, minThirstiness, maxHunger, minHunger, lvl, name, description, inventory, position);
 
 		//TODO: Set everything!
 

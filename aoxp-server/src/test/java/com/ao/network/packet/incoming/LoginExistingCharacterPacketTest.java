@@ -82,6 +82,15 @@ public class LoginExistingCharacterPacketTest {
 		when(inputBuffer.get()).thenReturn(major).thenReturn(minor).thenReturn(version);
 		when(inputBuffer.getASCIIStringFixed(security.getClientHashLength())).thenReturn(hash);
 	}
+	
+	@Test
+	public void testHandleSuccessfulLogin() throws Exception {
+		writeLogin(CHARACTER_NAME, CHARACTER_PASSWORD, CLIENT_MAJOR, CLIENT_MINOR, CLIENT_REVISION, "");
+		packet.handle(inputBuffer, connection);
+
+		verify(connection).send(errPacket.capture());
+		assertEquals(LoginServiceImpl.ONLY_ADMINS_ERROR, errPacket.getValue().getMessage());
+	}
 
 	@Test
 	public void testHandleRestrictedToAdminsTest() throws Exception {

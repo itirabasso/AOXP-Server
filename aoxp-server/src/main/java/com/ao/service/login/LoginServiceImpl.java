@@ -353,7 +353,11 @@ public class LoginServiceImpl implements LoginService {
 	 */
 	private void checkClient(final String hash, final String version)
 			throws LoginErrorException {
-
+		
+		if (true) {
+			return;
+		}
+		
 		if (!currentClientVersion.equals(version)) {
 			throw new LoginErrorException(String.format(
 					CLIENT_OUT_OF_DATE_ERROR_FORMAT, currentClientVersion));

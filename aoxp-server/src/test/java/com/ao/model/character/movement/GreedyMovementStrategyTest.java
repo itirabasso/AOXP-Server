@@ -37,8 +37,8 @@ public class GreedyMovementStrategyTest {
 
 	@Test
 	public void testMove() {
-		final Position pos = new Position((byte) 50, (byte) 50, 1);
-		final Position target = new Position((byte) 60, (byte) 60, 1);
+		final Position pos = new Position((byte) 50, (byte) 50, (short) 1);
+		final Position target = new Position((byte) 60, (byte) 60, (short) 1);
 
 		// Should go to northeast
 		moveTest(pos, target, Heading.WEST, Heading.SOUTH);
